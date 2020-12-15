@@ -317,7 +317,7 @@ var csurfInitialization = {
    * @private
    */
 
-  name: '@@isCsurfInitialized@@',
+  _name: '@@isCsurfInitialized@@',
 
   /**
    * Get csurf initialization status
@@ -327,7 +327,7 @@ var csurfInitialization = {
    */
 
   getStatus: function (req) {
-    return req[this.name]
+    return req[this._name]
   },
 
   /**
@@ -339,6 +339,6 @@ var csurfInitialization = {
    */
 
   setStatus: function (req, isInitialized) {
-    req[this.name] = isInitialized
+    req[this._name] = isInitialized
   }
 }
