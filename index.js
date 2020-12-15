@@ -307,11 +307,16 @@ function verifyConfiguration (req, sessionKey, cookie) {
 }
 
 /**
- * Manipulate csurf initialization status only in cookie mode.
+ * Manipulate csurf initialization status.
+ * This variable is only used in cookie mode.
  * @private
  */
 
 var csurfInitialization = {
+  /**
+   * @private
+   */
+
   name: '@@isCsurfInitialized@@',
 
   /**
