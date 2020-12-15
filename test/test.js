@@ -244,7 +244,7 @@ describe('csurf', function () {
 
         request(app)
           .get('/')
-          .expect(500, /csurf\({cookie\: true}\) or csurf\({cookie\: {}}}\) is repeatedly called with same middleware in the cooke mode, first validation will result in the invalid token/, done)
+          .expect(500, /csurf\({cookie: true}\) or csurf\({cookie: {}}}\) is repeatedly called with same middleware in the cooke mode, first validation will result in the invalid token/, done)
       })
     })
 
