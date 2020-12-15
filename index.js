@@ -317,6 +317,7 @@ var csurfInitialization = {
   /**
    * Get csurf initialization status
    * @param {IncomingMessage} req
+   * @returns {boolean} Csurf is initializaed or not.
    * @private
    */
 
@@ -328,6 +329,7 @@ var csurfInitialization = {
    * Get csurf initialization status
    * @param {IncomingMessage} req
    * @param {boolean} isInitialized
+   * @returns {void}
    * @private
    */
 
