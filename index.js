@@ -66,12 +66,14 @@ function csurf (options) {
   var ignoreMethod = getIgnoredMethods(ignoreMethods)
 
   return function csrf (req, res, next) {
-    if (req.isInitialized) {
-      console.warn('[Warning] csurf() is duplicately called with same middleware in the cooke mode, first validation will result in the invalid token.')
-    }
+    if (cookie) {
+      if (csurfInitialization.getStatus(req)) {
+        return next(new Error('csurf({cookie: true}) or csurf({cookie: {}}}) is repeatedly called with same middleware in the cooke mode, first validation will result in the invalid token'))
+      }
 
-    if (!req.isInitialized && cookie) {
-      req.isInitialized = true
+      if (!csurfInitialization.getStatus(req)) {
+        csurfInitialization.setStatus(req, true)
+      }
     }
 
     // validate the configuration against request
@@ -302,4 +304,34 @@ function verifyConfiguration (req, sessionKey, cookie) {
   }
 
   return true
+}
+
+/**
+ * Manipulate csurf initialization status only in cookie mode.
+ * @private
+ */
+
+var csurfInitialization = {
+  name: '@@isCsurfInitialized@@',
+
+  /**
+   * Get csurf initialization status
+   * @param {IncomingMessage} req
+   * @private
+   */
+
+  getStatus: function (req) {
+    return req[this.name]
+  },
+
+  /**
+   * Get csurf initialization status
+   * @param {IncomingMessage} req
+   * @param {boolean} isInitialized
+   * @private
+   */
+
+  setStatus: function (req, isInitialized) {
+    req[this.name] = isInitialized
+  }
 }
